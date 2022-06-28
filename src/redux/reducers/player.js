@@ -11,7 +11,8 @@ const playerReducer = (state = INNITIAL_STATE, action) => {
   switch (action.type) {
   case GET_TOKEN:
     localStorage.setItem('token', action.payload.token);
-    break;
+    return state;
+  
   default:
     return state;
   }
