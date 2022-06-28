@@ -25,13 +25,14 @@ class Login extends React.Component {
 
   handleClick = async () => {
     const { addToken, history } = this.props;
-    await addToken();
+    const { name, email } = this.state;
+    await addToken(name, email);
     history.push('/game');
   }
 
   configPush = () => {
     const { history } = this.props;
-    history.push('/configuracao')
+    history.push('/configuracao');
   }
 
   render() {
@@ -67,9 +68,10 @@ class Login extends React.Component {
           Play
         </button>
         <button
-        data-testid="btn-settings"
-        type="button"
-        onClick={ this.configPush }>
+          data-testid="btn-settings"
+          type="button"
+          onClick={ this.configPush }
+        >
           Configuração
         </button>
       </form>
@@ -80,10 +82,10 @@ class Login extends React.Component {
 Login.propTypes = {
   addToken: PropTypes.func.isRequired,
   history: PropTypes.func.isRequired,
-}
+};
 
 const mapDispatchToProps = (dispatch) => ({
-  addToken: () => dispatch(fetchToken()),
+  addToken: (value1, value2) => dispatch(fetchToken(value1, value2)),
 });
 
 export default connect(null, mapDispatchToProps)(Login);
