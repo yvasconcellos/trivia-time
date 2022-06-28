@@ -1,3 +1,5 @@
+import { GET_TOKEN } from '../actions';
+
 const INNITIAL_STATE = {
   name: '',
   assertions: '',
@@ -7,6 +9,9 @@ const INNITIAL_STATE = {
 
 const playerReducer = (state = INNITIAL_STATE, action) => {
   switch (action.type) {
+  case GET_TOKEN:
+    localStorage.setItem('token', action.payload.token);
+    break;
   default:
     return state;
   }
