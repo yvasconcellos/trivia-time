@@ -1,5 +1,6 @@
 const endpoint = 'https://opentdb.com/api_token.php?command=request';
 export const GET_TOKEN = 'GET_TOKEN';
+export const SEND_SCORE = 'SEND_SCORE';
 
 export const getToken = (token, name, email) => ({
   type: GET_TOKEN,
@@ -11,3 +12,8 @@ export const fetchToken = (name, email) => async (dispatch) => {
   const data = await response.json();
   dispatch(getToken(data, name, email));
 };
+
+export const sendScore = (value) => ({
+  type: SEND_SCORE,
+  payload: value,
+});
