@@ -36,11 +36,13 @@ class Game extends React.Component {
   }
 
   shuffleAnswers = (param) => {
-    const { index } = this.state;
-    const arrayAnswer = [...param[index].incorrect_answers];
-    const shuffleIndex = Math.floor(Math.random() * (arrayAnswer.length + 1));
-    arrayAnswer.splice(shuffleIndex, 0, param[index].correct_answer);
-    this.setState({ shuffle: arrayAnswer });
+    if (param) {
+      const { index } = this.state;
+      const arrayAnswer = [...param[index].incorrect_answers];
+      const shuffleIndex = Math.floor(Math.random() * (arrayAnswer.length + 1));
+      arrayAnswer.splice(shuffleIndex, 0, param[index].correct_answer);
+      this.setState({ shuffle: arrayAnswer });
+    }
   }
 
   nextQuestion = () => {
@@ -75,7 +77,7 @@ class Game extends React.Component {
           <p data-testid="header-score">{ score }</p>
         </header>
         { interval >= 0 && <p>{ interval }</p>}
-        { (questions.length > 0)
+        { (questions && questions.length > 0)
         && (
           <>
             <p data-testid="question-category">
