@@ -2,7 +2,7 @@ import { GET_TOKEN, SEND_SCORE } from '../actions';
 
 const INNITIAL_STATE = {
   name: '',
-  assertions: '',
+  assertions: 0,
   score: 0,
   gravatarEmail: '',
 };
@@ -15,7 +15,8 @@ const player = (state = INNITIAL_STATE, action) => {
   case SEND_SCORE:
     return {
       ...state,
-      score: action.payload,
+      score: action.payload.score,
+      assertions: action.payload.assertions,
     };
   default:
     return state;

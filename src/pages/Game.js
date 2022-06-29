@@ -19,6 +19,7 @@ class Game extends React.Component {
     shuffle: [],
     correct: true,
     sum: 0,
+    assertions: 0,
   }
 
   async componentDidMount() {
@@ -68,8 +69,8 @@ class Game extends React.Component {
 
   dispatchScore = () => {
     const { dispatch } = this.props;
-    const { sum } = this.state;
-    dispatch(sendScore(sum));
+    const { sum, assertions } = this.state;
+    dispatch(sendScore(sum, assertions));
   }
 
   sumPoints = (correct, interval) => {
@@ -86,6 +87,7 @@ class Game extends React.Component {
     console.log(pointDifficulty);
     this.setState((prev) => ({
       sum: prev.sum + (TEN + (interval * pointDifficulty)),
+      assertions: prev.assertions + 1,
     }), this.dispatchScore);
   }
 
