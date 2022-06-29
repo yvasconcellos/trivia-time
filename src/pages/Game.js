@@ -3,11 +3,15 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import md5 from 'crypto-js/md5';
 
+const ONE_SECOND = 1000;
+
 class Game extends React.Component {
   state = {
     questions: [],
     index: 0,
     click: false,
+    interval: 30,
+    shuffle: [],
   }
 
   async componentDidMount() {
@@ -18,32 +22,38 @@ class Game extends React.Component {
     );
     const data = await response.json();
     const errorCode = 3;
-    console.log(typeof data.response_code);
     if (data.response_code === errorCode) {
       localStorage.removeItem('token');
       history.push('/');
     } else {
       this.setState({ questions: data.results });
     }
+    this.intervalId = setInterval(() => {
+      this.setState((prev) => ({ interval: prev.interval - 1 }));
+    }, ONE_SECOND);
+    const { questions } = this.state;
+    this.shuffleAnswers(questions);
   }
 
-  shuffleAnswers = () => {
-    const { index, questions } = this.state;
-    const arrayAnswer = [...questions[index].incorrect_answers];
+  shuffleAnswers = (param) => {
+    const { index } = this.state;
+    const arrayAnswer = [...param[index].incorrect_answers];
     const shuffleIndex = Math.floor(Math.random() * (arrayAnswer.length + 1));
-    arrayAnswer.splice(shuffleIndex, 0, questions[index].correct_answer);
-    return arrayAnswer;
+    arrayAnswer.splice(shuffleIndex, 0, param[index].correct_answer);
+    this.setState({ shuffle: arrayAnswer });
   }
 
   nextQuestion = () => {
-    const { index } = this.state;
+    const { index, questions } = this.state;
     const limit = 4;
     if (index === limit) {
-      this.setState({ index: 0 });
+      this.setState({ index: 0 }, () => this.shuffleAnswers(questions));
     } else {
-      this.setState((prev) => ({ index: prev.index + 1 }));
+      this.setState((prev) => ({ index: prev.index + 1 }),
+        () => this.shuffleAnswers(questions));
     }
-    this.setState({ click: false });
+    this.setState({ click: false,
+      interval: 30 });
   }
 
   handleClick = () => {
@@ -52,7 +62,7 @@ class Game extends React.Component {
 
   render() {
     const { name, score, email } = this.props;
-    const { index, questions, click } = this.state;
+    const { index, questions, click, interval, shuffle } = this.state;
     return (
       <>
         <header>
@@ -64,6 +74,7 @@ class Game extends React.Component {
           <p data-testid="header-player-name">{ name }</p>
           <p data-testid="header-score">{ score }</p>
         </header>
+        { interval >= 0 && <p>{ interval }</p>}
         { (questions.length > 0)
         && (
           <>
@@ -72,7 +83,7 @@ class Game extends React.Component {
             </p>
             <p data-testid="question-text">{ questions[index].question }</p>
             <section data-testid="answer-options">
-              {this.shuffleAnswers().map((answer, i) => (
+              {shuffle.map((answer, i) => (
                 (answer === questions[index].correct_answer)
                   ? (
                     <button
@@ -81,6 +92,7 @@ class Game extends React.Component {
                       type="button"
                       onClick={ this.handleClick }
                       className={ click && 'correct' }
+                      disabled={ interval <= 0 }
                     >
                       { questions[index].correct_answer }
                     </button>)
@@ -91,15 +103,24 @@ class Game extends React.Component {
                       type="button"
                       onClick={ this.handleClick }
                       className={ click && 'incorrect' }
+                      disabled={ interval <= 0 }
                     >
                       { answer }
                     </button>)))}
 
             </section>
           </>)}
-        { click && 
-        <button data-testid="btn-next" type="button" onClick={ this.nextQuestion }>Next</button>
-        }      
+        { (click || interval <= 0)
+          && (
+            <button
+              data-testid="btn-next"
+              type="button"
+              onClick={ this.nextQuestion }
+            >
+              Next
+            </button>
+          )}
+
       </>
     );
   }
