@@ -97,7 +97,9 @@ class Game extends React.Component {
 
             </section>
           </>)}
-        <button type="button" onClick={ this.nextQuestion }>Next</button>
+        { click && 
+        <button data-testid="btn-next" type="button" onClick={ this.nextQuestion }>Next</button>
+        }      
       </>
     );
   }
