@@ -7,6 +7,7 @@ class Game extends React.Component {
   state = {
     questions: [],
     index: 0,
+    click: false,
   }
 
   async componentDidMount() {
@@ -42,11 +43,16 @@ class Game extends React.Component {
     } else {
       this.setState((prev) => ({ index: prev.index + 1 }));
     }
+    this.setState({click: false})
+  }
+
+  handleClick = () => {
+    this.setState({click: true})
   }
 
   render() {
     const { name, score, email } = this.props;
-    const { index, questions } = this.state;
+    const { index, questions, click } = this.state;
     return (
       <>
         <header>
@@ -73,6 +79,8 @@ class Game extends React.Component {
                       key={ i }
                       data-testid="correct-answer"
                       type="button"
+                      onClick={this.handleClick}
+                      className={click && 'correct'}
                     >
                       { questions[index].correct_answer }
                     </button>)
@@ -81,6 +89,8 @@ class Game extends React.Component {
                       key={ i }
                       data-testid={ `wrong-answer-${i}` }
                       type="button"
+                      onClick={this.handleClick}
+                      className={click && 'incorrect'}
                     >
                       { answer }
                     </button>)))}
