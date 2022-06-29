@@ -1,9 +1,14 @@
 import React from 'react';
-import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import md5 from 'crypto-js/md5';
+import { connect } from 'react-redux';
+import { sendScore } from '../redux/actions';
+import Header from '../Component/Header';
 
 const ONE_SECOND = 1000;
+const ONE = 1;
+const TWO = 2;
+const THREE = 3;
+const TEN = 10;
 
 class Game extends React.Component {
   state = {
@@ -12,6 +17,8 @@ class Game extends React.Component {
     click: false,
     interval: 30,
     shuffle: [],
+    correct: true,
+    sum: 0,
   }
 
   async componentDidMount() {
@@ -47,9 +54,10 @@ class Game extends React.Component {
 
   nextQuestion = () => {
     const { index, questions } = this.state;
+    const { history } = this.props;
     const limit = 4;
     if (index === limit) {
-      this.setState({ index: 0 }, () => this.shuffleAnswers(questions));
+      history.push('/feedback');
     } else {
       this.setState((prev) => ({ index: prev.index + 1 }),
         () => this.shuffleAnswers(questions));
@@ -58,24 +66,41 @@ class Game extends React.Component {
       interval: 30 });
   }
 
-  handleClick = () => {
+  dispatchScore = () => {
+    const { dispatch } = this.props;
+    const { sum } = this.state;
+    dispatch(sendScore(sum));
+  }
+
+  sumPoints = (correct, interval) => {
+    let pointDifficulty = 0;
+    const { questions } = this.state;
+    const answer = questions.filter((question) => question.correct_answer === correct);
+    if (answer[0].difficulty === 'easy') {
+      pointDifficulty = ONE;
+    } else if (answer[0].difficulty === 'medium') {
+      pointDifficulty = TWO;
+    } else if (answer[0].difficulty === 'hard') {
+      pointDifficulty = THREE;
+    }
+    console.log(pointDifficulty);
+    this.setState((prev) => ({
+      sum: prev.sum + (TEN + (interval * pointDifficulty)),
+    }), this.dispatchScore);
+  }
+
+  handleClick = ({ target }) => {
+    const { interval } = this.state;
+    const { value } = target;
+    if (value) this.sumPoints(target.innerHTML, interval);
     this.setState({ click: true });
   }
 
   render() {
-    const { name, score, email } = this.props;
-    const { index, questions, click, interval, shuffle } = this.state;
+    const { index, questions, click, interval, shuffle, correct } = this.state;
     return (
       <>
-        <header>
-          <img
-            src={ `https://www.gravatar.com/avatar/${md5(email).toString()}` }
-            alt={ `Imagem de ${name}` }
-            data-testid="header-profile-picture"
-          />
-          <p data-testid="header-player-name">{ name }</p>
-          <p data-testid="header-score">{ score }</p>
-        </header>
+        <Header />
         { interval >= 0 && <p>{ interval }</p>}
         { (questions && questions.length > 0)
         && (
@@ -95,6 +120,7 @@ class Game extends React.Component {
                       onClick={ this.handleClick }
                       className={ click && 'correct' }
                       disabled={ interval <= 0 }
+                      value={ correct }
                     >
                       { questions[index].correct_answer }
                     </button>)
@@ -129,16 +155,8 @@ class Game extends React.Component {
 }
 
 Game.propTypes = {
-  email: PropTypes.string.isRequired,
-  name: PropTypes.string.isRequired,
-  score: PropTypes.number.isRequired,
   history: PropTypes.shape().isRequired,
+  dispatch: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = (state) => ({
-  email: state.playerReducer.gravatarEmail,
-  name: state.playerReducer.name,
-  score: state.playerReducer.score,
-});
-
-export default connect(mapStateToProps, null)(Game);
+export default connect()(Game);
