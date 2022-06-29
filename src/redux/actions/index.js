@@ -13,7 +13,7 @@ export const fetchToken = (name, email) => async (dispatch) => {
   dispatch(getToken(data, name, email));
 };
 
-export const sendScore = (value) => ({
+export const sendScore = (score, assertions) => ({
   type: SEND_SCORE,
-  payload: value,
+  payload: { score, assertions },
 });
