@@ -84,7 +84,6 @@ class Game extends React.Component {
     } else if (answer[0].difficulty === 'hard') {
       pointDifficulty = THREE;
     }
-    console.log(pointDifficulty);
     this.setState((prev) => ({
       sum: prev.sum + (TEN + (interval * pointDifficulty)),
       assertions: prev.assertions + 1,
