@@ -22,7 +22,7 @@ class Ranking extends React.Component {
     );
   }
 }
-
+// test
 Ranking.propTypes = {
   history: PropTypes.shape().isRequired,
 };
