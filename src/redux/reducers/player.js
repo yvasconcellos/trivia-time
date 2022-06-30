@@ -1,4 +1,4 @@
-import { GET_TOKEN, SEND_SCORE } from '../actions';
+import { GET_TOKEN, SEND_SCORE, RESET_GAME } from '../actions';
 
 const INNITIAL_STATE = {
   name: '',
@@ -18,6 +18,8 @@ const player = (state = INNITIAL_STATE, action) => {
       score: action.payload.score,
       assertions: action.payload.assertions,
     };
+  case RESET_GAME:
+    return INNITIAL_STATE;
   default:
     return state;
   }
