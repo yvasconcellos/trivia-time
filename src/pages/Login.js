@@ -1,13 +1,18 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { fetchToken } from '../redux/actions';
+import { fetchToken, resetGame } from '../redux/actions';
 
 class Login extends React.Component {
   state = {
     name: '',
     email: '',
     disabledButton: true,
+  }
+
+  componentDidMount() {
+    const { resetState } = this.props;
+    resetState();
   }
 
   handleChange = (e) => {
@@ -82,10 +87,12 @@ class Login extends React.Component {
 Login.propTypes = {
   addToken: PropTypes.func.isRequired,
   history: PropTypes.shape().isRequired,
+  resetState: PropTypes.func.isRequired,
 };
 
 const mapDispatchToProps = (dispatch) => ({
   addToken: (value1, value2) => dispatch(fetchToken(value1, value2)),
+  resetState: () => dispatch(resetGame()),
 });
 
 export default connect(null, mapDispatchToProps)(Login);
