@@ -35,12 +35,17 @@ class Game extends React.Component {
       history.push('/');
     } else {
       this.setState({ questions: data.results });
+      this.shuffleAnswers(data.results);
     }
     this.intervalId = setInterval(() => {
       this.setState((prev) => ({ interval: prev.interval - 1 }));
     }, ONE_SECOND);
-    const { questions } = this.state;
-    this.shuffleAnswers(questions);
+    // const { questions } = this.state;
+    // this.shuffleAnswers(questions);
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.intervalId);
   }
 
   shuffleAnswers = (param) => {
