@@ -106,9 +106,34 @@ class Game extends React.Component {
   render() {
     const { index, questions, click, interval, shuffle, correct } = this.state;
     return (
-      <>
+      <div
+      className='flex flex-col'
+      >
         <Header />
-        { interval >= 0 && <p>{ interval }</p>}
+        { interval >= 0 ? 
+        <div
+        className='
+        flex justify-center
+        my-8
+        w-screen
+        '
+        >
+        <p
+        className='bg-white p-8 interval'
+        >{ interval }</p>
+        </div> :
+        <div
+        className='
+        flex justify-center
+        my-8
+        w-screen
+        '
+        >
+        <p
+        className='bg-white p-8 interval'
+        >0</p>
+        </div>
+        }
         { (questions && questions.length > 0)
         && (
           <>
@@ -205,7 +230,7 @@ class Game extends React.Component {
           </div>
           </>)}
 
-      </>
+      </div>
     );
   }
 }

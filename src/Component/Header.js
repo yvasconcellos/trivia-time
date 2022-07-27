@@ -7,15 +7,35 @@ class Header extends React.Component {
   render() {
     const { name, score, email } = this.props;
     return (
-      <header>
+      <header
+      className='grid
+      grid-cols-2
+      bg-violet-900
+      items-center
+      p-2
+      '
+      >
         <img
           src={ `https://www.gravatar.com/avatar/${md5(email).toString()}` }
           alt={ `Imagem de ${name}` }
           data-testid="header-profile-picture"
-          className='rounded-lg'
+          className='rounded-lg
+          justify-self-start
+          h-12
+          '
         />
-        <p data-testid="header-player-name">{ name }</p>
-        <p data-testid="header-score">{ score }</p>
+        <div
+        className='justify-self-end
+        mx-4
+        '
+        >
+        <p data-testid="header-player-name"
+          className='text-white'
+          >{ `User: ${name}` }</p>
+        <p data-testid="header-score"
+          className='text-white'
+        >{ `Score: ${score}` }</p>
+          </div>
       </header>
     );
   }
