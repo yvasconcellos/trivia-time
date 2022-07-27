@@ -12,6 +12,7 @@ class Header extends React.Component {
           src={ `https://www.gravatar.com/avatar/${md5(email).toString()}` }
           alt={ `Imagem de ${name}` }
           data-testid="header-profile-picture"
+          className='rounded-lg'
         />
         <p data-testid="header-player-name">{ name }</p>
         <p data-testid="header-score">{ score }</p>

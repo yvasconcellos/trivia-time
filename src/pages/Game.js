@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { sendScore } from '../redux/actions';
 import Header from '../Component/Header';
+import {decode} from 'html-entities';
 
 const ONE_SECOND = 1000;
 const ONE = 1;
@@ -111,24 +112,57 @@ class Game extends React.Component {
         { (questions && questions.length > 0)
         && (
           <>
-            <p data-testid="question-category">
-              {`Categoria: ${questions[index].category}`}
+          <div>
+          <p
+          className='text-center
+          text-white
+          text-2xl'
+          >Category</p>
+            <p data-testid="question-category"
+            className='text-center
+            text-white'
+            >
+              {decode(questions[index].category)}
             </p>
-            <p data-testid="question-text">{ questions[index].question }</p>
-            <section data-testid="answer-options">
+            <p data-testid="question-text"
+            className='text-center
+            text-white
+            text-xl
+            m-3
+            '
+            >{ decode(questions[index].question) }</p>
+            </div>
+            <div
+            className='flex flex-col items-center'
+            >
+            <section data-testid="answer-options"
+            className='flex flex-wrap
+            w-1/2
+            justify-center
+            '
+            >
               {shuffle.map((answer, i) => (
                 (answer === questions[index].correct_answer)
-                  ? (
+                  ? 
+                  (
                     <button
                       key={ i }
                       data-testid="correct-answer"
                       type="button"
                       onClick={ this.handleClick }
-                      className={ click && 'correct' }
+                      className={ `m-2
+                      w-1/2
+                      py-1
+                      rounded-lg
+                      disabled:bg-slate-900
+                      disabled:text-slate-800
+                      bg-slate-800
+                      text-white
+                      ${click && 'bg-green-500'}` }
                       disabled={ interval <= 0 }
                       value={ correct }
-                    >
-                      { questions[index].correct_answer }
+                      >
+                      { decode(questions[index].correct_answer) }
                     </button>)
                   : (
                     <button
@@ -136,24 +170,40 @@ class Game extends React.Component {
                       data-testid={ `wrong-answer-${i}` }
                       type="button"
                       onClick={ this.handleClick }
-                      className={ click && 'incorrect' }
+                      className={ `m-2
+                      w-1/2
+                      py-1
+                      rounded-lg
+                      disabled:bg-slate-900
+                      disabled:text-slate-800
+                      bg-slate-800
+                      text-white
+                      ${click && 'bg-red-500'}` }
                       disabled={ interval <= 0 }
-                    >
-                      { answer }
-                    </button>)))}
-
+                      >
+                      { decode(answer) }
+                    </button>
+                    )
+                    ))}
             </section>
-          </>)}
         { (click || interval <= 0)
           && (
             <button
-              data-testid="btn-next"
+            data-testid="btn-next"
               type="button"
               onClick={ this.nextQuestion }
+              className={ `m-2
+                      w-1/4
+                      py-1
+                      rounded-lg
+                      bg-slate-100
+                      text-black`}
             >
               Next
             </button>
           )}
+          </div>
+          </>)}
 
       </>
     );

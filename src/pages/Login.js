@@ -2,6 +2,8 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { fetchToken, resetGame } from '../redux/actions';
+import triviatime from '../images/triviatime.png'
+import bggame from '../images/bggame.png'
 
 class Login extends React.Component {
   state = {
@@ -43,32 +45,85 @@ class Login extends React.Component {
   render() {
     const { name, email, disabledButton } = this.state;
     return (
-      <form>
+    <div
+    className='flex justify-center'
+    >
+      <div
+      className='flex h-screen w-1/2 items-center'
+      >
+        <img src={bggame}
+        className='w-screen'
+        />
+      </div>
+      <form
+      className='flex 
+      flex-col 
+      w-1/2 
+      items-center 
+      justify-center
+      '
+      >
+      <div
+      className='flex flex-col
+      bg-violet-900
+      rounded-lg
+      w-2/3
+      p-10
+      items-center
+      '
+      >
+        <img src={triviatime} 
+        />
         <label htmlFor="name">
-          Nome:
           <input
             name="name"
             type="text"
             data-testid="input-player-name"
             value={ name }
             onChange={ this.handleChange }
-          />
+            placeholder='Username'
+            className='my-2
+            bg-violet-900
+            p-1
+            border-b
+            border-slate-600
+            text-white
+            focus:outline-none
+            '
+            />
         </label>
         <label htmlFor="email">
-          Email:
           <input
             name="email"
             type="email"
             data-testid="input-gravatar-email"
             value={ email }
             onChange={ this.handleChange }
-          />
+            placeholder='Email'
+            className='my-2
+            bg-violet-900
+            border-b
+            border-slate-600
+            p-1
+            text-white
+            focus:outline-none
+            '
+            />
         </label>
         <button
           disabled={ disabledButton }
           type="button"
           data-testid="btn-play"
           onClick={ this.handleClick }
+          className='my-2
+          w-1/2
+          py-1
+          rounded-lg
+          disabled:bg-slate-900
+          disabled:text-slate-800
+          bg-slate-800
+          text-white
+          '
         >
           Play
         </button>
@@ -76,10 +131,19 @@ class Login extends React.Component {
           data-testid="btn-settings"
           type="button"
           onClick={ this.configPush }
-        >
+          className='my-2
+          w-1/2
+          py-1
+          rounded-lg
+          bg-slate-800
+          text-white
+          '
+          >
           Configuração
         </button>
+          </div>
       </form>
+    </div>
     );
   }
 }
