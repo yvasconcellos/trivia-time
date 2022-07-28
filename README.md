@@ -72,4 +72,4 @@ Agradecemos às seguintes pessoas que contribuíram para este projeto:
 
 Quer fazer parte desse projeto? Clique [AQUI](CONTRIBUTING.md) e leia como contribuir.
 
-[⬆ Voltar ao topo](#nome-do-projeto)<br>
+[⬆ Voltar ao topo](#trivia-time)<br>
