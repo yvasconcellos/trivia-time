@@ -26,10 +26,30 @@ class Ranking extends React.Component {
       w-1/3
       '
       >
-        <h1 data-testid="ranking-title">Ranking</h1>
+        <h1 data-testid="ranking-title"
+        className='text-white text-3xl text-center my-3'
+        >Ranking</h1>
+        <div
+        className='flex justify-center'
+        >
+        <button
+          type="button"
+          data-testid="btn-go-home"
+          onClick={ this.redirectLogin }
+          className='text-white w-fit'
+          >
+          Home
+        </button>
+        </div>
         { ranking.map((cur, index) => (
           <div
           className='flex
+          items-center
+          justify-around
+          bg-violet-700
+          py-2
+          rounded-lg
+          my-2
           ' 
           key={ cur.name }>
             <img
@@ -37,7 +57,8 @@ class Ranking extends React.Component {
               alt={ `Imagem de ${cur.name}` }
               data-testid="header-profile-picture"
             />
-            <div>
+            <div
+            >
               <p data-testid={ `player-name-${index}` }
                 className='text-white'
               >{`User: ${cur.name} `}</p>
@@ -47,13 +68,6 @@ class Ranking extends React.Component {
             </div>
           </div>
         ))}
-        <button
-          type="button"
-          data-testid="btn-go-home"
-          onClick={ this.redirectLogin }
-        >
-          Home
-        </button>
       </div>
     );
   }

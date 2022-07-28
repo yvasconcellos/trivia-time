@@ -51,7 +51,13 @@ class Feedback extends React.Component {
           >Could be better...</p>
         </div>
           : 
-          <div>
+          <div
+        className='flex flex-col
+        items-center
+        my-3
+        w-screen
+        '
+        >
             <img 
             className='w-1/12
             my-2
