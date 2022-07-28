@@ -132,6 +132,7 @@ class Login extends React.Component {
         <button
           data-testid="btn-settings"
           type="button"
+          disabled
           onClick={ this.configPush }
           className='my-2
           w-1/2
