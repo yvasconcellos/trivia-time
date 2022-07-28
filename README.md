@@ -12,6 +12,10 @@ O projeto ainda está em desenvolvimento e as próximas atualizações serão vo
 - [ ] Tela de Configuração
 - [ ] Escolha de Background
 
+### Deploy da aplicação
+
+<a href='https://trivia-time-tau.vercel.app/'> https://trivia-time-tau.vercel.app/ </a>
+
 ## 📫 Contribuindo para Trivia Time
 
 1. Bifurque este repositório.
