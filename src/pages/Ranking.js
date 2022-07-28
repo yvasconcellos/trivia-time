@@ -21,17 +21,30 @@ class Ranking extends React.Component {
   render() {
     const { ranking } = this.state;
     return (
-      <>
+      <div
+      className='flex flex-col
+      w-1/3
+      '
+      >
         <h1 data-testid="ranking-title">Ranking</h1>
         { ranking.map((cur, index) => (
-          <div key={ cur.name }>
-            <p data-testid={ `player-name-${index}` }>{ cur.name }</p>
-            <p data-testid={ `player-score-${index}` }>{ cur.score }</p>
+          <div
+          className='flex
+          ' 
+          key={ cur.name }>
             <img
               src={ `https://www.gravatar.com/avatar/${MD5(cur.gravatarEmail).toString()}` }
               alt={ `Imagem de ${cur.name}` }
               data-testid="header-profile-picture"
             />
+            <div>
+              <p data-testid={ `player-name-${index}` }
+                className='text-white'
+              >{`User: ${cur.name} `}</p>
+              <p data-testid={ `player-score-${index}` }
+                className='text-white'
+              >{`Score: ${cur.score} `}</p>
+            </div>
           </div>
         ))}
         <button
@@ -41,7 +54,7 @@ class Ranking extends React.Component {
         >
           Home
         </button>
-      </>
+      </div>
     );
   }
 }

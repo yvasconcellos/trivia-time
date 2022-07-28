@@ -114,12 +114,13 @@ class Game extends React.Component {
         <div
         className='
         flex justify-center
-        my-8
+        my-6
         w-screen
+        interval
         '
         >
         <p
-        className='bg-white p-8 interval'
+        className='text-white text-5xl p-6 interval'
         >{ interval }</p>
         </div> :
         <div
@@ -127,10 +128,11 @@ class Game extends React.Component {
         flex justify-center
         my-8
         w-screen
+        interval
         '
         >
         <p
-        className='bg-white p-8 interval'
+        className='text-white text-5xl p-8 interval'
         >0</p>
         </div>
         }

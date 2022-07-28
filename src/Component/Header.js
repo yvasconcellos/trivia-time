@@ -10,6 +10,7 @@ class Header extends React.Component {
       <header
       className='grid
       grid-cols-2
+      w-screen
       bg-violet-900
       items-center
       p-2

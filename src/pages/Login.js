@@ -23,7 +23,8 @@ class Login extends React.Component {
 
   ableBtn = () => {
     const { name, email } = this.state;
-    if (name !== '' && email !== '') {
+    const regexEmail = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/
+    if (name !== '' && regexEmail.test(email)) {
       this.setState({ disabledButton: false });
     } else {
       this.setState({ disabledButton: true });
@@ -74,7 +75,8 @@ class Login extends React.Component {
       >
         <img src={triviatime} 
         />
-        <label htmlFor="name">
+        <label htmlFor="name"
+        >
           <input
             name="name"
             type="text"
