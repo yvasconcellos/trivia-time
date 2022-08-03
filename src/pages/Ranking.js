@@ -23,7 +23,8 @@ class Ranking extends React.Component {
     return (
       <div
       className='flex flex-col
-      w-1/3
+      w-80
+      sm:w-96
       '
       >
         <h1 data-testid="ranking-title"
@@ -47,7 +48,7 @@ class Ranking extends React.Component {
           items-center
           justify-around
           bg-violet-700
-          py-2
+          p-2
           rounded-lg
           my-2
           ' 
