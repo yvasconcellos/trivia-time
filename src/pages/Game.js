@@ -114,7 +114,7 @@ class Game extends React.Component {
         <div
         className='
         flex justify-center
-        my-6
+        my-4
         w-screen
         interval
         '
@@ -126,13 +126,13 @@ class Game extends React.Component {
         <div
         className='
         flex justify-center
-        my-8
+        my-4
         w-screen
         interval
         '
         >
         <p
-        className='text-white text-5xl p-8 interval'
+        className='text-white text-5xl p-6 interval'
         >0</p>
         </div>
         }
@@ -165,6 +165,7 @@ class Game extends React.Component {
             <section data-testid="answer-options"
             className='flex flex-wrap
             w-1/2
+            md:w-1/3
             justify-center
             '
             >
@@ -177,8 +178,9 @@ class Game extends React.Component {
                       data-testid="correct-answer"
                       type="button"
                       onClick={ this.handleClick }
-                      className={ `m-2
-                      w-1/2
+                      className={ `m-1
+                      sm:m-2
+                      w-56
                       py-1
                       rounded-lg
                       disabled:bg-slate-900
@@ -197,8 +199,9 @@ class Game extends React.Component {
                       data-testid={ `wrong-answer-${i}` }
                       type="button"
                       onClick={ this.handleClick }
-                      className={ `m-2
-                      w-1/2
+                      className={ `m-1
+                      sm:m-2
+                      w-56
                       py-1
                       rounded-lg
                       disabled:bg-slate-900
@@ -212,15 +215,14 @@ class Game extends React.Component {
                     </button>
                     )
                     ))}
-            </section>
         { (click || interval <= 0)
           && (
             <button
             data-testid="btn-next"
               type="button"
               onClick={ this.nextQuestion }
-              className={ `m-2
-                      w-1/4
+              className={ `m-1
+                      w-56
                       py-1
                       rounded-lg
                       bg-slate-100
@@ -229,6 +231,7 @@ class Game extends React.Component {
               Next
             </button>
           )}
+            </section>
           </div>
           </>)}
 
