@@ -47,10 +47,13 @@ class Login extends React.Component {
     const { name, email, disabledButton } = this.state;
     return (
     <div
-    className='flex justify-center'
+    className='flex justify-center h-screen w-screen'
     >
       <div
-      className='flex h-screen w-1/2 items-center'
+      className='h-screen w-1/2 items-center
+      hidden
+      lg:flex
+      '
       >
         <img src={bggame}
         className='w-screen'
@@ -59,7 +62,8 @@ class Login extends React.Component {
       <form
       className='flex 
       flex-col 
-      w-1/2 
+      w-[450px]
+      sm:w-[500px]
       items-center 
       justify-center
       '
@@ -91,6 +95,7 @@ class Login extends React.Component {
             border-slate-600
             text-white
             focus:outline-none
+            w-full
             '
             />
         </label>
@@ -109,6 +114,7 @@ class Login extends React.Component {
             p-1
             text-white
             focus:outline-none
+            w-full
             '
             />
         </label>
@@ -118,7 +124,7 @@ class Login extends React.Component {
           data-testid="btn-play"
           onClick={ this.handleClick }
           className='my-2
-          w-1/2
+          w-full
           py-1
           rounded-lg
           disabled:bg-slate-900
@@ -135,11 +141,12 @@ class Login extends React.Component {
           disabled
           onClick={ this.configPush }
           className='my-2
-          w-1/2
+          w-full
           py-1
           rounded-lg
           bg-slate-800
           text-white
+          text-lg
           '
           >
           Configuração
