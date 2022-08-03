@@ -42,7 +42,8 @@ class Feedback extends React.Component {
         '
         >
           <img
-          className='w-1/12
+          className='
+          w-28
           my-2
           '
           src={sadness} alt='Sad Face'/>
@@ -59,7 +60,7 @@ class Feedback extends React.Component {
         '
         >
             <img 
-            className='w-1/12
+            className='w-28
             my-2
             '
             src={happiness} alt='Happy Face'/>
